@@ -44,16 +44,35 @@
         <section class="card">
             <h2>Recent Complaints</h2>
 
-            {% for complaint in complaints %}
-                <article class="complaint">
-                    <h3>Complaint #{{ complaint.id }}</h3>
-                    <p><strong>Location:</strong> {{ complaint.location }}</p>
-                    <p>{{ complaint.description }}</p>
-                    <span class="status">{{ complaint.status }}</span>
-                </article>
-            {% else %}
-                <p>No complaints yet. Be the first to report a problem!</p>
-            {% endfor %}
+<section class="card">
+    <h2>Recent Complaints</h2>
+
+    {% for complaint in complaints %}
+        <article class="complaint">
+            <h3>Complaint #{{ complaint.id }}</h3>
+
+            <p>
+                <strong>Location:</strong>
+                {{ complaint.location }}
+            </p>
+
+            <p>{{ complaint.description }}</p>
+
+            {% if complaint.photo %}
+                <img
+                    src="{{ url_for('static', filename='uploads/' + complaint.photo) }}"
+                    alt="Garbage reported at {{ complaint.location }}"
+                    style="width:100%; max-width:350px; border-radius:10px;"
+                >
+            {% endif %}
+
+            <span class="status">{{ complaint.status }}</span>
+        </article>
+    {% else %}
+        <p>No complaints yet. Be the first to report a problem!</p>
+    {% endfor %}
+</section>
+            
         </section>
     </main>
 
@@ -63,41 +82,69 @@
 </body>
 </html>
 
+
 <form action="/report" method="POST" enctype="multipart/form-data">
-    <label for="location">Garbage Location</label>
-    <input
-        id="location"
-        name="location"
-        placeholder="Enter street or area name"
-        maxlength="200"
-        required
-    >
+    <section class="card">
+        <h2>Report Garbage</h2>
 
-    <label for="description">Description</label>
-    <textarea
-        id="description"
-        name="description"
-        placeholder="Describe the garbage problem"
-        maxlength="2000"
-        required
-    ></textarea>
+        <label for="location">Location</label>
+        <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Enter garbage location"
+            required
+        >
 
-{% if complaint.photo %}
-    <img
-        src="{{ url_for('static', filename='uploads/' + complaint.photo) }}"
-        alt="Garbage reported at {{ complaint.location }}"
-        style="width: 100%; max-width: 350px; border-radius: 10px;"
-    >
-{% endif %}
+        <label for="description">Description</label>
+        <textarea
+            id="description"
+            name="description"
+            placeholder="Describe the garbage problem"
+            maxlength="2000"
+            required
+        ></textarea>
 
+        <label for="photo">Upload Garbage Photo (optional)</label>
+        <input
+            id="photo"
+            name="photo"
+            type="file"
+            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+        >
 
-    <label for="photo">Upload Garbage Photo (optional)</label>
-    <input
-        id="photo"
-        name="photo"
-        type="file"
-        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
-    >
-
-    <button type="submit">Submit Complaint</button>
+        <button type="submit">Submit Complaint</button>
+    </section>
 </form>
+
+<section class="card">
+    <h2>Recent Complaints</h2>
+
+    {% for complaint in complaints %}
+        <article class="complaint">
+            <h3>Complaint #{{ complaint.id }}</h3>
+
+            <p>
+                <strong>Location:</strong>
+                {{ complaint.location }}
+            </p>
+
+            <p>{{ complaint.description }}</p>
+
+            {% if complaint.photo %}
+                <img
+                    src="{{ url_for('static', filename='uploads/' + complaint.photo) }}"
+                    alt="Reported garbage"
+                    style="width:100%; max-width:350px; border-radius:10px;"
+                >
+            {% endif %}
+
+            <p>
+                <strong>Status:</strong>
+                {{ complaint.status }}
+            </p>
+        </article>
+    {% else %}
+        <p>No complaints yet. Be the first to report a problem!</p>
+    {% endfor %}
+</section>
