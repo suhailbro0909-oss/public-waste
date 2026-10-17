@@ -62,3 +62,42 @@
     </footer>
 </body>
 </html>
+
+<form action="/report" method="POST" enctype="multipart/form-data">
+    <label for="location">Garbage Location</label>
+    <input
+        id="location"
+        name="location"
+        placeholder="Enter street or area name"
+        maxlength="200"
+        required
+    >
+
+    <label for="description">Description</label>
+    <textarea
+        id="description"
+        name="description"
+        placeholder="Describe the garbage problem"
+        maxlength="2000"
+        required
+    ></textarea>
+
+{% if complaint.photo %}
+    <img
+        src="{{ url_for('static', filename='uploads/' + complaint.photo) }}"
+        alt="Garbage reported at {{ complaint.location }}"
+        style="width: 100%; max-width: 350px; border-radius: 10px;"
+    >
+{% endif %}
+
+
+    <label for="photo">Upload Garbage Photo (optional)</label>
+    <input
+        id="photo"
+        name="photo"
+        type="file"
+        accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+    >
+
+    <button type="submit">Submit Complaint</button>
+</form>
