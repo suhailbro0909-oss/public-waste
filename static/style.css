@@ -1,0 +1,139 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f7f2;
+    color: #24352a;
+}
+
+header {
+    background: #176b45;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+header h2 {
+    margin: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 18px;
+}
+
+.hero {
+    text-align: center;
+    padding: 65px 20px;
+    background: #d8f0df;
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #176b45;
+}
+
+.hero p {
+    line-height: 1.7;
+}
+
+.button,
+button {
+    display: inline-block;
+    background: #176b45;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover,
+.button:hover {
+    background: #104d32;
+}
+
+main {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0 18px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px #00000010;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd8ce;
+    border-radius: 6px;
+    font: inherit;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+    margin-bottom: 18px;
+}
+
+.complaint {
+    border: 1px solid #dce8df;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    overflow-wrap: anywhere;
+}
+
+.status {
+    display: inline-block;
+    background: #fff0c2;
+    color: #755400;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #526457;
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    header {
+        padding: 18px;
+    }
+
+    nav a {
+        margin-left: 0;
+        margin-right: 12px;
+    }
+}

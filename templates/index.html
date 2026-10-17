@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCity | Waste Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h2>♻️ CleanCity</h2>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/admin">Admin Dashboard</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Let's Keep Our City Clean!</h1>
+        <p>Report uncollected garbage and help create a cleaner environment.</p>
+        <a href="#report" class="button">Report Garbage</a>
+    </section>
+
+    <main>
+        <section class="card" id="report">
+            <h2>Submit a Complaint</h2>
+
+            <form action="/report" method="POST">
+                <label for="location">Garbage Location</label>
+                <input id="location" name="location"
+                       placeholder="Enter street or area name"
+                       maxlength="200" required>
+
+                <label for="description">Description</label>
+                <textarea id="description" name="description"
+                          placeholder="Describe the garbage problem"
+                          maxlength="2000" required></textarea>
+
+                <button type="submit">Submit Complaint</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Recent Complaints</h2>
+
+            {% for complaint in complaints %}
+                <article class="complaint">
+                    <h3>Complaint #{{ complaint.id }}</h3>
+                    <p><strong>Location:</strong> {{ complaint.location }}</p>
+                    <p>{{ complaint.description }}</p>
+                    <span class="status">{{ complaint.status }}</span>
+                </article>
+            {% else %}
+                <p>No complaints yet. Be the first to report a problem!</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>CleanCity — Building a cleaner tomorrow.</p>
+    </footer>
+</body>
+</html>
