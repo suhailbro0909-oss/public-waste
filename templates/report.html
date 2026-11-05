@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CleanCity | Report Garbage</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="report-page">
+
+    <nav class="report-navbar">
+        <h2>🌿 CleanCity</h2>
+        <a href="{{ url_for('home') }}">Home</a>
+    </nav>
+
+    <main class="report-container">
+
+        <div class="report-heading">
+            <span class="report-icon">📍</span>
+            <h1>Report Garbage</h1>
+            <p>Help us make your city cleaner and healthier.</p>
+        </div>
+
+        <form action="{{ url_for('report') }}"
+              method="POST"
+              enctype="multipart/form-data"
+              class="report-form">
+
+            <label>Garbage Location</label>
+            <input type="text" name="location"
+                   placeholder="Enter street or area"
+                   required>
+
+            <label>Complaint Description</label>
+            <textarea name="description"
+                      placeholder="Describe the garbage problem..."
+                      required></textarea>
+
+            <label>GPS Location</label>
+
+            <button type="button"
+                    class="gps-button"
+                    onclick="getLocation()">
+                📍 Detect My Location
+            </button>
+
+            <p id="gpsStatus">Location not detected yet.</p>
+
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
+
+            <label>Upload Garbage Photo</label>
+
+            <input type="file"
+                   name="photo"
+                   accept=".jpg,.jpeg,.png,.webp">
+
+            <button type="submit" class="submit-button">
+                Submit Complaint →
+            </button>
+
+        </form>
+
+    </main>
+
+    <script>
+        function getLocation() {
+            const status = document.getElementById("gpsStatus");
+
+            if (!navigator.geolocation) {
+                status.textContent = "GPS is not supported.";
+                return;
+            }
+
+            status.textContent = "Detecting location...";
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    document.getElementById("latitude").value = lat;
+                    document.getElementById("longitude").value = lon;
+
+                    status.textContent =
+                        "✓ Location detected: " +
+                        lat.toFixed(6) + ", " + lon.toFixed(6);
+                },
+                function(error) {
+                    status.textContent =
+                        "Location unavailable. Please allow location permission.";
+                },
+                { enableHighAccuracy: true, timeout: 15000 }
+            );
+        }
+    </script>
+
+</body>
+</html>

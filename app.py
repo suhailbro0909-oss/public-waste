@@ -70,6 +70,17 @@ def initialize_database():
                 "ALTER TABLE complaints ADD COLUMN user_id INTEGER"
             )
 
+# Add GPS latitude column
+if "latitude" not in columns:
+    db.execute(
+        "ALTER TABLE complaints ADD COLUMN latitude REAL"
+    )
+
+# Add GPS longitude column
+if "longitude" not in columns:
+    db.execute(
+        "ALTER TABLE complaints ADD COLUMN longitude REAL"
+    )
 
 # HOME PAGE
 @app.route("/")
